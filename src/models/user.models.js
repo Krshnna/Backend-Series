@@ -1,39 +1,26 @@
-import mongoose, { Schema } from "mongoose";
- 
-const userSchema = new Schema({
-    userName: {
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema({
+    username: {
         type: String,
         required: true,
-        unique: true,
-        lower: true,
-        index: true
     },
     email:{
         type: String,
         required: true,
     },
-    avatar: {
-        type: String,
+    phone: {
+        type: String, 
         required: true,
     },
-    coverImage: {
-        type:String,
-    },
-    watchHistory: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Video",
-        }
-    ],
-    password:{
-        type:String,
-        required: [true, "Please provide password"],
-    },
-    refreshToken: {
+    password: {
         type: String,
+        required: true,
+    }, 
+    isAdmin: {
+        type: Boolean, 
+        default: false,
     },
-},{
-    timestamps: true,
-});
+}, {timestamps: true});
 
 module.exports = mongoose.model("User", userSchema);

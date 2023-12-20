@@ -1,7 +1,6 @@
 const app = require("./app");
 const { connectDatabase } = require("./database/db");
 
-
 connectDatabase();
 
 app.listen(process.env.PORT || 3000, () => {
