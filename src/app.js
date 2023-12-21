@@ -12,5 +12,8 @@ app.use(cookieParser());
 app.use(cors());
 app.use(express.static("public"));
 
+const user = require("./routes/user.routes");
+
+app.use("/api/v1", user);
 
 module.exports = app;
