@@ -38,12 +38,13 @@ exports.userLogin = async (req, res) => {
     }
     const isMatchPassword = await userExists.matchPassword(password);
     console.log(isMatchPassword);
-
     if (!isMatchPassword) {
       return res.status(401).json({
         message: "Invalid email or password!!!",
       });
     }
+
+    const token = await userExists.generateToken();
 
     const options = {
       expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
@@ -61,3 +62,15 @@ exports.userLogin = async (req, res) => {
     });
   }
 };
+
+exports.logout = async(req, res, next) =>{
+  try {
+    res.status(200).cookie("token", null, {
+      expires: new Date(Date.now()), httpOnly: true,
+    }).json({
+      message: "Logged out Successfully!"
+    })
+  } catch (error) {
+    next(error)
+  }
+}
